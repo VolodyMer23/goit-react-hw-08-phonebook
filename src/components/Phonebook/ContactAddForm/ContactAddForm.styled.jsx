@@ -40,7 +40,7 @@ export const PhonebookInput = styled.input`
     align-items: center;
     justify-content: left;
     color: #efefef;
-    width: 65px;
+    width: 70px;
     top: 0;
     left: 0;
     height: 100%;

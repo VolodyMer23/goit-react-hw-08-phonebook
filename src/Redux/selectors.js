@@ -1,4 +1,9 @@
 export const getFilter = state => state.phonebook.filter;
 export const getContacts = state => state.phonebook.contacts.items;
-export const getError = state => state.phonebook.contacts.error;
-export const getLoading = state => state.phonebook.contacts.isLoading;
+export const getError = state => state.phonebook.error;
+export const getLoading = state => state.phonebook.isLoading;
+export const getUserToken = state => state.phonebook.auth.token;
+export const getIsLoggedIn = state => state.phonebook.auth.isLoggedIn;
+export const getUserEmail = state => state.phonebook.auth.user.email;
+export const getUser = state => state.phonebook.auth.user;
+export const getRefreshed = state => state.phonebook.refreshed;
