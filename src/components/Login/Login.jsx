@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit: ({ email, password }) => handleSubmit(email, password),
@@ -36,7 +36,7 @@ function Login() {
   const handleSubmit = (email, password) => {
     // e.preventDefault();
     formik.resetForm();
-    dispatch(login({email, password}));
+    dispatch(login({ email, password }));
   };
   return (
     <Form onSubmit={formik.handleSubmit}>

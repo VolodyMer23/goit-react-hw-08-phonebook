@@ -11,8 +11,11 @@ export const Main = styled.main`
 export const Header = styled.header`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
   gap: 16px;
   align-items: center;
   margin: 0;
-  padding: 64px;
+  padding: 16px;
+  background-color: #dcffea;
 `;

@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'Redux/selectors';
+import { addContact } from 'Redux/operations';
 import {
   PhonebookInput,
   InputWrapper,
@@ -27,19 +31,34 @@ const validationSchema = Yup.object({
     ),
 });
 
-function ContactAddForm({onSubmit}) {
- 
+function ContactAddForm() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
   const formik = useFormik({
     initialValues: { name: '', number: '' },
     onSubmit: ({ name, number }) => handleSubmit(name, number),
     validationSchema,
   });
 
-  const handleSubmit = (name, number) => {
-    // e.preventDefault();
-    formik.resetForm();
-    onSubmit(name, number);
+  const nameCheker = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
   };
+
+  const handleSubmit = (name, number) => {
+    const newContact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+    if (nameCheker(name)) {
+      return toast.warn(`${name} is already in contacts.`);
+    }
+    dispatch(addContact(newContact));
+  };
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <InputWrapper>
@@ -74,7 +93,3 @@ function ContactAddForm({onSubmit}) {
 }
 
 export default ContactAddForm;
-
-ContactAddForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

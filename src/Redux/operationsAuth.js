@@ -16,7 +16,7 @@ export const register = createAsyncThunk(
     try {
       const { data: result } = await axios.post('/users/signup', data);
       setToken(result.token);
-      console.log('Registered')
+      console.log('Registered');
       return result;
     } catch (error) {
       return rejectWithValue(error);
@@ -48,10 +48,12 @@ export const logout = createAsyncThunk('auth/login', async () => {
   }
 });
 
-export const refresh = createAsyncThunk('auth/refresh', async (token) => {
-    if (token === null) return
-    setToken(token);
-    try {
+export const refresh = createAsyncThunk('auth/refresh', async token => {
+  if (token === null) {
+    return;
+  }
+  setToken(token);
+  try {
     const { data } = await axios.post('/users/current');
     return data;
   } catch (error) {

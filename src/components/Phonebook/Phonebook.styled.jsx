@@ -9,6 +9,7 @@ export const Container = styled.div`
   color: #010101;
   background-color: #0d1a29;
   padding: 32px;
+  padding-top: 0;
   margin: 0;
 `;
 

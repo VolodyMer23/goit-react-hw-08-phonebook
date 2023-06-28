@@ -10,28 +10,44 @@ import {
   DeleteIcon,
   Message,
 } from './ContactList.styled';
-import { useSelector } from 'react-redux';
-import { getError, getLoading } from 'Redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getError, getFilter, getLoading, getRefreshed } from 'Redux/selectors';
+import { deleteContact } from 'Redux/operations';
 
-function Contacts({ title, contacts, onDelete }) {
+function Contacts() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
   const loading = useSelector(getLoading);
   const error = useSelector(getError);
+  const refreshed = useSelector(getRefreshed);
+  
+  const onFilterContact = () => {
+    const normalizedFilter = filter.toLowerCase();
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+    return filteredContacts;
+  };
 
   return (
     <ContactsWrapper>
-      <ContactsTitle>{title}</ContactsTitle>
+      <ContactsTitle>Contacts</ContactsTitle>
       <ContactsList>
-        {contacts.length === 0 && !error && !loading && (
+        {contacts.length === 0 && !error && !loading && !refreshed && (
           <Message>No contacts</Message>
         )}
         {loading && <Message>Loading</Message>}
         {error && <Message>Oops somthing wrong</Message>}
-        {contacts.map(({ name, number, id }) => {
+        {onFilterContact().map(({ name, number, id }) => {
           return (
             <ContactsItem key={id}>
               <ContactsName>{name}:</ContactsName>
               <ContactsNumber>{number}</ContactsNumber>
-              <DeleteBtn aria-label="Delete" onClick={() => onDelete(id)}>
+              <DeleteBtn
+                aria-label="Delete"
+                onClick={() => dispatch(deleteContact(id))}
+              >
                 <DeleteIcon />
               </DeleteBtn>
             </ContactsItem>
