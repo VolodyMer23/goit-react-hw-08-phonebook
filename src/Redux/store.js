@@ -7,11 +7,11 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist/es/constants';
-import { persistedPhonebookReducer } from './phonebookSlice';
+import { persistedPhonebookReducer, phonebookSlice } from './phonebookSlice';
 
 export const store = configureStore({
   reducer: {
-    phonebook: persistedPhonebookReducer,
+    phonebook: phonebookSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
