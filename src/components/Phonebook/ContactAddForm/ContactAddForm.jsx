@@ -40,7 +40,7 @@ function ContactAddForm() {
     onSubmit: ({ name, number }) => handleSubmit(name, number),
     validationSchema,
   });
-console.log('formik :>> ', formik);
+  
   const nameCheker = name => {
     return contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()

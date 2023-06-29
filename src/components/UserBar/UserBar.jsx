@@ -6,7 +6,6 @@ import { LogOutIcon, LogOutBtn, UserAvatar, Wrapper } from './UserBar.styled';
 
 function UserBar() {
   const user = useSelector(getUser);
-  console.log('user :>> ', user);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());

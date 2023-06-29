@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 
 function Login() {
   const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit: ({ email, password }) => handleSubmit(email, password),
@@ -34,7 +34,7 @@ function Login() {
   const handleSubmit = (email, password) => {
     formik.resetForm();
     dispatch(login({ email, password }));
-navigate('/contacts');
+    navigate('/contacts');
   };
   return (
     <Form onSubmit={formik.handleSubmit}>

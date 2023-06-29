@@ -20,7 +20,6 @@ export default function Phonebook() {
 
   useEffect(() => {
     dispatch(fetchRefresh(token));
-    console.log('token :>> ', token);
     dispatch(fetchContacts());
   }, [dispatch, token]);
 

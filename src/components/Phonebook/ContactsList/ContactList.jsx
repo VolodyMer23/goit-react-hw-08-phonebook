@@ -20,7 +20,6 @@ function Contacts() {
   const loading = useSelector(getLoading);
   const error = useSelector(getError);
   const refreshed = useSelector(getRefreshed);
-  
   const onFilterContact = () => {
     const normalizedFilter = filter.toLowerCase();
     const filteredContacts = contacts.filter(contact =>
