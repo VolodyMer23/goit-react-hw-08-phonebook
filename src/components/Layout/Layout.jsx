@@ -1,8 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import { Container } from '../Phonebook/Phonebook.styled';
-import { Header, Main } from './Layout.styled';
+import { Outlet } from 'react-router-dom';
+import {
+  Header,
+  Main,
+  Logo,
+  Wrapper,
+  RNavLink,
+  Nav,
+  Container,
+} from './Layout.styled';
 import { getUserToken } from 'Redux/selectors';
 import { useSelector } from 'react-redux';
+import UserBar from 'components/UserBar/UserBar';
 
 export const Layout = () => {
   const token = useSelector(getUserToken);
@@ -10,16 +18,19 @@ export const Layout = () => {
   return (
     <Container>
       <Header>
-        <div>Logo</div>
-        <nav>
-          {!token && <NavLink to={'/register'}>SignUP</NavLink>}
+        <Wrapper>
+          <Logo />
+          PhoneBookAPP
+        </Wrapper>
+        <Nav>
+          {!token && <RNavLink to={'/register'}>Sign Up</RNavLink>}
           {!token ? (
-            <NavLink to={'/login'}>Login</NavLink>
+            <RNavLink to={'/login'}>Sign In</RNavLink>
           ) : (
-            <NavLink to={'/contacts'}>Contacts</NavLink>
+            <RNavLink to={'/contacts'}>Contacts</RNavLink>
           )}
-        </nav>
-        {token && <div>Avatar</div>}
+        </Nav>
+        {token && <UserBar />}
       </Header>
       <Main>
         <Outlet />

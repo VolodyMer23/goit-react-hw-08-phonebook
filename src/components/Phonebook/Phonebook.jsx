@@ -11,14 +11,16 @@ import Contacts from './ContactsList/ContactList';
 import ContactAddForm from './ContactAddForm/ContactAddForm';
 import Filter from './Filter/Filter';
 import { ToastContainer } from 'react-toastify';
-import { refresh } from 'Redux/operationsAuth';
+import 'react-toastify/dist/ReactToastify.css';
+import { fetchRefresh } from 'Redux/operationsAuth';
 
 export default function Phonebook() {
   const dispatch = useDispatch();
   const token = useSelector(getUserToken);
 
   useEffect(() => {
-    dispatch(refresh(token));
+    dispatch(fetchRefresh(token));
+    console.log('token :>> ', token);
     dispatch(fetchContacts());
   }, [dispatch, token]);
 
@@ -30,7 +32,18 @@ export default function Phonebook() {
       </PhonebookContainer>
       <Filter />
       <Contacts />
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Container>
   );
 }

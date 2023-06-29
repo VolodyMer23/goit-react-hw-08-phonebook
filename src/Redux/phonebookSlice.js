@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { login, logout, refresh, register } from './operationsAuth';
+import { login, logOut, fetchRefresh, register } from './operationsAuth';
 
 const initialState = {
   contacts: {
@@ -91,30 +91,30 @@ export const phonebookSlice = createSlice({
       state.error = action.payload;
       state.auth.token = null;
     },
-    [logout.pending]: state => {
+    [logOut.pending]: state => {
       state.isLoading = true;
       state.error = null;
     },
-    [logout.fulfilled]: state => {
+    [logOut.fulfilled]: state => {
       state.auth.user = { name: null, email: null };
       state.auth.token = null;
       state.auth.isLoggedIn = false;
       state.isLoading = false;
     },
-    [logout.rejected]: (state, action) => {
+    [logOut.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    [refresh.pending]: state => {
+    [fetchRefresh.pending]: state => {
       state.isLoading = true;
       state.error = null;
     },
-    [refresh.fulfilled]: (state, action) => {
+    [fetchRefresh.fulfilled]: (state, action) => {
       state.refreshed = true;
       state.isLoading = false;
       // state.auth.user = action.payload;
     },
-    [refresh.rejected]: (state, action) => {
+    [fetchRefresh.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
       state.auth.user = { name: null, email: null };

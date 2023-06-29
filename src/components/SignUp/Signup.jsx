@@ -23,11 +23,7 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .min(6, 'Must be atleat 6 symbols')
     .max(255, 'Must be 255 symbols or less')
-    .required('Password is required')
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +.'
-    ),
+    .required('Password is required'),
 });
 
 function Signup() {
@@ -42,13 +38,11 @@ function Signup() {
   });
 
   const handleSubmit = (name, email, password) => {
-    formik.resetForm();
-    const newUser = {
+      const newUser = {
       name,
       email,
       password,
     };
-    console.log('newUser :>> ', newUser);
     dispatch(register(newUser));
     navigate('/login');
   };
@@ -80,6 +74,7 @@ function Signup() {
         </InputWrapper>
         <InputWrapper>
           <PhonebookInput
+            type='password'
             name="password"
             id="password"
             required

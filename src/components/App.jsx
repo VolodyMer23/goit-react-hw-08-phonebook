@@ -1,14 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
-import Phonebook from './Phonebook/Phonebook';
-import Login from './Login/Login';
 import Signup from './SignUp/Signup';
-import { getUserToken } from 'Redux/selectors';
+import LoginPage from 'pages/LoginPage';
+import ContactsPage from 'pages/ContactsPage';
 import { useSelector } from 'react-redux';
+import { getUserToken } from 'Redux/selectors';
 
 export default function App() {
   const token = useSelector(getUserToken);
-  console.log('APP token :>> ', token);
+  
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -18,11 +19,15 @@ export default function App() {
         />
         <Route
           path="login"
-          element={!token ? <Login /> : <Navigate to={'/contacts'} replace />}
+          element={
+            !token ? <LoginPage /> : <Navigate to={'/contacts'} replace />
+          }
         />
         <Route
           path="contacts"
-          element={token ? <Phonebook /> : <Navigate to={'/login'} replace />}
+          element={
+            token ? <ContactsPage /> : <Navigate to={'/login'} replace />
+          }
         />
       </Route>
     </Routes>

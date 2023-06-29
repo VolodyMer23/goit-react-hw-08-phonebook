@@ -9,6 +9,7 @@ import {
 } from 'components/Phonebook/ContactAddForm/ContactAddForm.styled';
 import { useDispatch } from 'react-redux';
 import { login } from 'Redux/operationsAuth';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -18,15 +19,12 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .min(6, 'Must be atleat 6 symbols')
     .max(255, 'Must be 255 symbols or less')
-    .required('Password is required')
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +.'
-    ),
+    .required('Password is required'),
 });
 
 function Login() {
   const dispatch = useDispatch();
+    const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit: ({ email, password }) => handleSubmit(email, password),
@@ -34,9 +32,9 @@ function Login() {
   });
 
   const handleSubmit = (email, password) => {
-    // e.preventDefault();
     formik.resetForm();
     dispatch(login({ email, password }));
+navigate('/contacts');
   };
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -53,6 +51,7 @@ function Login() {
       </InputWrapper>
       <InputWrapper>
         <PhonebookInput
+          type="password"
           name="password"
           id="password"
           required

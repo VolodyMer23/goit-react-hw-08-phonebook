@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import {
   ContactsWrapper,
   ContactsTitle,
@@ -57,17 +56,5 @@ function Contacts() {
     </ContactsWrapper>
   );
 }
-
-Contacts.propTypes = {
-  title: PropTypes.string,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
 
 export default Contacts;
