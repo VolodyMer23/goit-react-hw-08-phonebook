@@ -37,14 +37,14 @@ function Contacts() {
         )}
         {loading && <Message>Loading</Message>}
         {error && <Message>Oops somthing wrong</Message>}
-        {onFilterContact().map(({ name, number, id }) => {
+        {onFilterContact().map(({ name, number, _id }) => {
           return (
-            <ContactsItem key={id}>
+            <ContactsItem key={_id}>
               <ContactsName>{name}:</ContactsName>
               <ContactsNumber>{number}</ContactsNumber>
               <DeleteBtn
                 aria-label="Delete"
-                onClick={() => dispatch(deleteContact(id))}
+                onClick={() => dispatch(deleteContact(_id))}
               >
                 <DeleteIcon />
               </DeleteBtn>

@@ -13,7 +13,7 @@ function UserBar() {
 
   return (
     <Wrapper>
-      <UserAvatar>{user.name.slice(0, 1).toUpperCase()}</UserAvatar>
+      <UserAvatar>{user.email.slice(0, 1).toUpperCase()}</UserAvatar>
       <LogOutBtn type="button" onClick={handleLogout}>
         <LogOutIcon />
       </LogOutBtn>

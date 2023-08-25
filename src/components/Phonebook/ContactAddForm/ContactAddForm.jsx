@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'Redux/selectors';
@@ -20,8 +19,11 @@ const validationSchema = Yup.object({
     .matches(
       /^[\p{L} '-]+$/u,
       'Name may contain only letters, apostrophe, dash and spaces.'
-    ),
-  number: Yup.string()
+  ),
+  email: Yup.string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Name is required'),
+  phone: Yup.string()
     .min(6, 'Must be atleat 6 nubmers')
     .max(17, 'Must be 11 nubmers or less')
     .required('Phone number is required')
@@ -36,8 +38,8 @@ function ContactAddForm() {
   const contacts = useSelector(getContacts);
 
   const formik = useFormik({
-    initialValues: { name: '', number: '' },
-    onSubmit: ({ name, number }) => handleSubmit(name, number),
+    initialValues: { name: '', phone: '', email: '' },
+    onSubmit: ({ name, phone, email }) => handleSubmit(name, phone, email),
     validationSchema,
   });
   
@@ -47,15 +49,16 @@ function ContactAddForm() {
     );
   };
 
-  const handleSubmit = (name, number) => {
+  const handleSubmit = (name, phone, email) => {
     const newContact = {
       name,
-      number,
-      id: nanoid(),
+      email,
+      phone,
     };
     if (nameCheker(name)) {
       return toast.warn(`${name} is already in contacts.`);
     }
+    console.log('newContact :>> ', newContact);
     dispatch(addContact(newContact));
     formik.handleReset();
   };
@@ -76,11 +79,24 @@ function ContactAddForm() {
       </InputWrapper>
       <InputWrapper>
         <PhonebookInput
-          name="number"
-          id="number"
+          name="email"
+          id="email"
+          title=""
+          required
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+
+        <label htmlFor="email">Email</label>
+      </InputWrapper>
+      <InputWrapper>
+        <PhonebookInput
+          name="phone"
+          id="phone"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={formik.values.number}
+          value={formik.values.phone}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
